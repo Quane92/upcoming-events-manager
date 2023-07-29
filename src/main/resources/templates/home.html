@@ -7,13 +7,13 @@
 <body>
     <h1 th:text="${message}"> </h1>
     <form method="post">
-        <label> E-Mail: </label>
-        <input type="text">
+        <label for="email"> E-Mail: </label>
+        <input type="text" id="email" name="email">
         <br>
-        <label> Password: </label>
-        <input type="text">
+        <label for="password"> Password: </label>
+        <input type="text" id="password" name="password">
         <br>
-        <input type="submit" href="/login" value="Sign In">
+        <input type="submit" href="/home" value="Sign In">
     </form>
     <p> Don't have an account? <a href="/register" methods="get"> Sign Up! </a> </p>
 </body>

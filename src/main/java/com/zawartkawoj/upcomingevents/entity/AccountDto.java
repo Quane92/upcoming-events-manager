@@ -1,34 +1,32 @@
 package com.zawartkawoj.upcomingevents.entity;
 
-import jakarta.persistence.*;
-
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity(name = "accounts")
-public class Account {
+public class AccountDto {
 
-    @Id
     private String email;
     private String firstName;
     private String lastName;
     private String password;
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
     private Set<Role> roles = new HashSet<>();
 
-    public Account() {
+    public AccountDto() {
     }
 
-    public Account(String email, String firstName, String lastName, String password) {
+    public AccountDto(String email, String firstName, String lastName, String password) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getFirstName() {
@@ -53,21 +51,5 @@ public class Account {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
     }
 }

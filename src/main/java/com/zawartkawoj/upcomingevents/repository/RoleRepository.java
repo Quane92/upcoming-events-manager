@@ -1,12 +1,11 @@
 package com.zawartkawoj.upcomingevents.repository;
 
-import com.zawartkawoj.upcomingevents.entity.Account;
+import com.zawartkawoj.upcomingevents.entity.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface AccountRepository extends JpaRepository<Account, String> {
+public interface RoleRepository extends JpaRepository<Role, Integer> {
 
-    Account findByEmail(String email);
-
+    Role findRoleByName(String name);
 }
