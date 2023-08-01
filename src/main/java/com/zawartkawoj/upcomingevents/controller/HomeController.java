@@ -2,7 +2,6 @@ package com.zawartkawoj.upcomingevents.controller;
 
 import com.zawartkawoj.upcomingevents.service.AccountService;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,19 +19,18 @@ public class HomeController {
     }
 
     @GetMapping
-    public ModelAndView showHomePage() {
-        ModelAndView modelAndView = new ModelAndView("home.html");
+    public ModelAndView showHomePage(Authentication authentication) {
+        ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("message", "Welcome to EventReminder");
+        String viewName =
+                authentication != null && authentication.isAuthenticated() ? "homeSignedIn.html" : "homeSignedOut.html";
+        modelAndView.setViewName(viewName);
         return modelAndView;
     }
 
     @PostMapping
-    public ModelAndView showAccountPage(Authentication authentication) {
-        ModelAndView modelAndView = new ModelAndView();
-        if (authentication != null && authentication.isAuthenticated()) {
-            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-            modelAndView.addObject("username", userDetails.getUsername());
-        }
-        return new ModelAndView("redirect:/user");
+    public ModelAndView showAccountPage() {
+        ModelAndView modelAndView = new ModelAndView("redirect:/user");
+        return modelAndView;
     }
 }

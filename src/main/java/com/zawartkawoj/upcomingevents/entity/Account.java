@@ -2,7 +2,9 @@ package com.zawartkawoj.upcomingevents.entity;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity(name = "accounts")
@@ -20,6 +22,7 @@ public class Account {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Set<Role> roles = new HashSet<>();
+   //private List<Event> events = new ArrayList<>();
 
     public Account() {
     }
@@ -70,4 +73,12 @@ public class Account {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+
+//    public List<Event> getEvents() {
+//        return events;
+//    }
+//
+//    public void setEvents(List<Event> events) {
+//        this.events = events;
+//    }
 }

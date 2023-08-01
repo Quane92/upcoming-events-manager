@@ -1,4 +1,6 @@
-package com.zawartkawoj.upcomingevents.entity;
+package com.zawartkawoj.upcomingevents.dto;
+
+import com.zawartkawoj.upcomingevents.entity.Role;
 
 import java.util.HashSet;
 import java.util.Set;

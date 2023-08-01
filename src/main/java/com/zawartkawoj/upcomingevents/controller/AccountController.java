@@ -1,7 +1,7 @@
 package com.zawartkawoj.upcomingevents.controller;
 
 import com.zawartkawoj.upcomingevents.entity.Account;
-import com.zawartkawoj.upcomingevents.entity.AccountDto;
+import com.zawartkawoj.upcomingevents.dto.AccountDto;
 import com.zawartkawoj.upcomingevents.service.AccountService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;

@@ -1,7 +1,7 @@
 package com.zawartkawoj.upcomingevents.service;
 
 import com.zawartkawoj.upcomingevents.entity.Account;
-import com.zawartkawoj.upcomingevents.entity.AccountDto;
+import com.zawartkawoj.upcomingevents.dto.AccountDto;
 import com.zawartkawoj.upcomingevents.entity.Role;
 import com.zawartkawoj.upcomingevents.exceptions.EmailAlreadyExistsException;
 import com.zawartkawoj.upcomingevents.repository.AccountRepository;
@@ -49,16 +49,16 @@ public class AccountService implements UserDetailsService {
         return accountRepository.findByEmail(name);
     }
 
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Account user = findByEmail(username);
-        UserDetails usertest =  User
+        return User
                 .withUsername(username)
                 .password(user.getPassword())
                 .authorities(user.getRoles().stream()
                         .map(role -> new SimpleGrantedAuthority(role.getName()))
                         .collect(Collectors.toList()))
                 .build();
-        return usertest;
     }
 }
