@@ -1,8 +1,11 @@
 package com.zawartkawoj.upcomingevents.dto;
 
+import com.zawartkawoj.upcomingevents.entity.Event;
 import com.zawartkawoj.upcomingevents.entity.Role;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class AccountDto {
@@ -12,6 +15,7 @@ public class AccountDto {
     private String lastName;
     private String password;
     private Set<Role> roles = new HashSet<>();
+    private List<Event> events = new ArrayList<>();
 
     public AccountDto() {
     }
@@ -53,5 +57,21 @@ public class AccountDto {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public List<Event> getEvents() {
+        return events;
+    }
+
+    public void setEvents(List<Event> events) {
+        this.events = events;
     }
 }

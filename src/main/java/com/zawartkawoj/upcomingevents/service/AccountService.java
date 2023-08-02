@@ -2,6 +2,7 @@ package com.zawartkawoj.upcomingevents.service;
 
 import com.zawartkawoj.upcomingevents.entity.Account;
 import com.zawartkawoj.upcomingevents.dto.AccountDto;
+import com.zawartkawoj.upcomingevents.entity.Event;
 import com.zawartkawoj.upcomingevents.entity.Role;
 import com.zawartkawoj.upcomingevents.exceptions.EmailAlreadyExistsException;
 import com.zawartkawoj.upcomingevents.repository.AccountRepository;
@@ -49,6 +50,11 @@ public class AccountService implements UserDetailsService {
         return accountRepository.findByEmail(name);
     }
 
+    public void addOrUpdateEvent(String email, Event event) {
+        Account account = findByEmail(email);
+        account.getEvents().add(event);
+        accountRepository.save(account);
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

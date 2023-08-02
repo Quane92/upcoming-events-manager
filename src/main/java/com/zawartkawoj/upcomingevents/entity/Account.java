@@ -22,7 +22,9 @@ public class Account {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Set<Role> roles = new HashSet<>();
-   //private List<Event> events = new ArrayList<>();
+
+    @OneToMany()
+    private List<Event> events = new ArrayList<>();
 
     public Account() {
     }
@@ -74,11 +76,11 @@ public class Account {
         this.roles = roles;
     }
 
-//    public List<Event> getEvents() {
-//        return events;
-//    }
-//
-//    public void setEvents(List<Event> events) {
-//        this.events = events;
-//    }
+    public List<Event> getEvents() {
+        return events;
+    }
+
+    public void setEvents(List<Event> events) {
+        this.events = events;
+    }
 }

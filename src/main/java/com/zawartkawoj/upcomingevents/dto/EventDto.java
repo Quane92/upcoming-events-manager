@@ -1,37 +1,20 @@
-package com.zawartkawoj.upcomingevents.entity;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+package com.zawartkawoj.upcomingevents.dto;
 
 import java.time.LocalDate;
 
-@Entity(name = "events")
-public class Event {
+public class EventDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
     private String name;
     private String note;
     private LocalDate date;
 
-    public Event() {
+    public EventDto() {
     }
 
-    public Event(String name, String note, LocalDate date) {
+    public EventDto(String name, String note, LocalDate date) {
         this.name = name;
         this.note = note;
         this.date = date;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -57,6 +40,4 @@ public class Event {
     public void setDate(LocalDate date) {
         this.date = date;
     }
-
-
 }
