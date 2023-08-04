@@ -3,21 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Account</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
             crossorigin="anonymous"></script>
     <style>
-        .marginTop { margin-top: 100px; }
+        .marginTopTable { margin-top: 100px; }
+        .buttonPosition { transform: translate(240px, 80px); }
     </style>
 </head>
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand mb-0 h1 fs-2 text-white" >Event Reminder</a>
-        <span class="navbar-text fs-3 fst-italic text-white"  th:text="'Hello, ' + ${username}"></span>
+        <a class="navbar-brand mb-1 h1 fs-2 text-white">Event Warden</a>
+        <span class="navbar-text ms-5 fs-3 fst-semibold text-white"  th:text="'Hello, ' + ${username}"></span>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
                 aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -37,24 +37,28 @@
     </div>
 </nav>
 
-<a class="btn btn-primary" href="/updateEvents" role="button">Add Event</a>
+<a class="btn btn-primary btn-lg buttonPosition" href="/event-form" role="button">Add Event</a>
 
-<table class="table table-striped table-bordered text-center mx-auto marginTop"
+<table class="table table-striped table-bordered text-center mx-auto marginTopTable"
        style="width:75%; padding-bottom:100px" >
     <thead class="table-dark">
     <tr>
-        <th scope="col">#</th>
-        <th scope="col">Event</th>
-        <th scope="col">Note</th>
-        <th scope="col">Date</th>
+        <th scope="col" style="vertical-align: middle; word-wrap: break-word; max-width:100px; width:100px">Event</th>
+        <th scope="col" style="vertical-align: middle; word-wrap: break-word; max-width:200px; width:200px">Note</th>
+        <th scope="col" style="vertical-align: middle; word-wrap: break-word; max-width:50px; width:50px">Date</th>
+        <th scope="col" style="vertical-align: middle; max-width:50px; width:50px">Action</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="event: ${account.events}">
-        <td th:text="${event.id}"></td>
-        <td th:text="${event.name}"></td>
-        <td th:text="${event.note}"></td>
-        <td th:text="${event.date}"></td>
+        <td th:hidden="${event.id}"></td>
+        <td th:text="${event.name}" style="vertical-align: middle; word-wrap: break-word; max-width:100px; width:100px"></td>
+        <td th:text="${event.note}" style="vertical-align: middle; word-wrap: break-word; max-width:200px; width:200px"></td>
+        <td th:text="${event.date}" style="vertical-align: middle; word-wrap: break-word; max-width:50px; width:50px"></td>
+        <td style="vertical-align: middle; max-width:50px; width:50px">
+            <a type="button" class="btn btn-success" th:href="@{/event-form(id=${event.id})}">Update</a>
+            <a type="button" class="btn btn-warning" th:href="@{/delete-event/{id}(id=${event.id})}">Delete</a>
+        </td>
     </tr>
     </tbody>
 </table>

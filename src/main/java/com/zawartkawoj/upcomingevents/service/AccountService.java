@@ -31,7 +31,7 @@ public class AccountService implements UserDetailsService {
     }
 
     public void addAccountThroughRegistration(AccountDto accountDto) throws EmailAlreadyExistsException {
-        boolean emailExists = accountRepository.findByEmail(accountDto.getEmail()) != null;
+        boolean emailExists = accountRepository.findByEmail(accountDto.getEmail()).isPresent();
         if (emailExists) {
             throw new EmailAlreadyExistsException("Email already exists in database");
         } else {
@@ -46,14 +46,13 @@ public class AccountService implements UserDetailsService {
         }
     }
 
-    public Account findByEmail(String name) {
-        return accountRepository.findByEmail(name);
+    public void saveAccount(Account account) {
+        accountRepository.save(account);
     }
 
-    public void addOrUpdateEvent(String email, Event event) {
-        Account account = findByEmail(email);
-        account.getEvents().add(event);
-        accountRepository.save(account);
+    public Account findByEmail(String name) {
+        return accountRepository.findByEmail(name).orElseThrow(
+                () -> new UsernameNotFoundException("Account with email: " + name + " does not exist."));
     }
 
     @Override

@@ -7,9 +7,7 @@ import com.zawartkawoj.upcomingevents.service.AccountService;
 import com.zawartkawoj.upcomingevents.service.EventService;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -34,19 +32,28 @@ public class UserPageController {
         return modelAndView;
     }
 
-    @GetMapping("/updateEvents")
-    public ModelAndView showEventsForm() {
+    @GetMapping("/event-form")
+    public ModelAndView showEventsForm(@RequestParam(required = false) Integer id) {
         ModelAndView modelAndView = new ModelAndView("/updateEvents.html");
-        modelAndView.addObject("event", new Event());
+        modelAndView.addObject("event", id != null ? eventService.findById(id) : new Event());
         return modelAndView;
     }
 
-    @PostMapping("/updateEvents")
+    @PostMapping("/event-form")
     public ModelAndView postEvent(@ModelAttribute EventDto eventDto, Authentication authentication) {
         ModelAndView modelAndView = new ModelAndView("redirect:/user");
+
         Account account = accountService.findByEmail(authentication.getName());
-        Event event = eventService.addOrUpdateEvent(eventDto);
-        accountService.addOrUpdateEvent(account.getEmail(), event);
+        eventService.addOrUpdateEvent(eventDto, account);
+
         return modelAndView;
     }
+
+    @GetMapping("/delete-event/{id}")
+    public ModelAndView deleteEvent(@PathVariable int id) {
+        ModelAndView modelAndView = new ModelAndView("redirect:/user");
+        eventService.deleteEventById(id);
+        return modelAndView;
+    }
+
 }

@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 public class EventDto {
 
+    private Integer id;
     private String name;
     private String note;
     private LocalDate date;
@@ -15,6 +16,14 @@ public class EventDto {
         this.name = name;
         this.note = note;
         this.date = date;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -40,4 +49,6 @@ public class EventDto {
     public void setDate(LocalDate date) {
         this.date = date;
     }
+
+
 }

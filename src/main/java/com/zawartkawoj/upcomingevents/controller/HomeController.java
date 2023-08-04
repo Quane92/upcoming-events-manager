@@ -21,7 +21,6 @@ public class HomeController {
     @GetMapping
     public ModelAndView showHomePage(Authentication authentication) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("message", "Welcome to EventReminder");
         String viewName =
                 authentication != null && authentication.isAuthenticated() ? "homeSignedIn.html" : "homeSignedOut.html";
         modelAndView.setViewName(viewName);

@@ -23,7 +23,7 @@ public class Account {
     )
     private Set<Role> roles = new HashSet<>();
 
-    @OneToMany()
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     private List<Event> events = new ArrayList<>();
 
     public Account() {
