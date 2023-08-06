@@ -23,11 +23,13 @@ public class SecurityConfig {
                         .loginPage("/home")
                         .loginProcessingUrl("/home")
                         .defaultSuccessUrl("/user")
+                        .failureUrl("/home?error=true")
                         .permitAll())
                 .logout(logout -> logout.logoutSuccessUrl("/home"))
                 .httpBasic(Customizer.withDefaults())
                 .build();
     }
+
 }
 
 

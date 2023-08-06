@@ -17,29 +17,31 @@
           integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 
     <link href="sign-in.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
 
 </head>
 <body class="d-flex align-items-center py-4 bg-body-tertiary">
 
 <main class="form-signin w-100 m-auto">
-    <form method="post" action="/home">
+    <form method="post" action="/home" th:object="${account}">
 
         <h1 class="text-white p-3 mb-2 bg-primary rounded display-5 mb-5 fw-bold justify-content-center">
             Event Warden
         </h1>
         <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
-        <div class="form-floating">
+        <div class="form-floating" >
             <input type="text" class="form-control" id="username" name="username" placeholder="name@example.com">
             <label for="username">Email address</label>
         </div>
         <div class="form-floating">
-            <input type="password" class="form-control mb-5" id="password" name="password" placeholder="Password">
+            <input type="password" class="form-control" id="password" name="password" placeholder="Password">
             <label for="password">Password</label>
         </div>
-
+        <p class="validation-error" th:if="${param.error}">Invalid username or password.</p>
         <button class="btn btn-secondary mb-1 w-100 py-2">Sign in</button>
         <a class="btn btn-primary w-100 py-2" href="/register" type="submit">Sign up</a>
+
     </form>
 </main>
 

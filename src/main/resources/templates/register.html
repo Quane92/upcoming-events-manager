@@ -17,12 +17,13 @@
           integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 
     <link href="sign-in.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
 
 </head>
 <body class="d-flex align-items-center py-4 bg-body-tertiary ">
 
 <main class="form-signin w-100 m-auto">
-    <form class="" method="post" th:action="@{/register}" th:object="${account}">
+    <form method="post" th:action="@{/register}" th:object="${account}">
 
         <h1 class="text-white p-3 mb-2 bg-primary rounded display-5 mb-5 fw-bold justify-content-center">
             Event Warden
@@ -31,18 +32,22 @@
 
         <div class="form-floating ">
             <input type="text" class="form-control" id="firstName" th:field="*{firstName}" placeholder="Luke">
+            <p class="validation-error" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></p>
             <label for="firstName">First Name</label>
         </div>
         <div class="form-floating">
             <input type="text" class="form-control" id="lastName" th:field="*{lastName}" placeholder="Skywalker">
+            <p class="validation-error" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></p>
             <label for="lastName">Last Name</label>
         </div>
         <div class="form-floating">
             <input type="email" class="form-control" id="email" th:field="*{email}" placeholder="name@example.com">
+            <p class="validation-error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
             <label for="email">Email address</label>
         </div>
         <div class="form-floating">
-            <input type="password" class="form-control mb-5" id="password" th:field="*{password}" placeholder="Password">
+            <input type="password" class="form-control" id="password" th:field="*{password}" placeholder="Password">
+            <p class="validation-error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
             <label for="password">Password</label>
         </div>
 

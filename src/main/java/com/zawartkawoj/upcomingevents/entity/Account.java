@@ -1,6 +1,8 @@
 package com.zawartkawoj.upcomingevents.entity;
 
+import com.zawartkawoj.upcomingevents.validation.RegistrationValidationGroup;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -11,9 +13,37 @@ import java.util.Set;
 public class Account {
 
     @Id
+    @NotNull
+    @NotEmpty(
+            message = "Please enter an email address.",
+            groups = {RegistrationValidationGroup.class})
     private String email;
+    @NotNull
+    @NotEmpty(
+            message = "Please enter your first name.",
+            groups = {RegistrationValidationGroup.class})
+    @Size(
+            max = 20,
+            message = "First name can have a maximum of 20 characters.",
+            groups = {RegistrationValidationGroup.class})
     private String firstName;
+    @NotNull
+    @NotEmpty(
+            message = "Please enter your last name.",
+            groups = {RegistrationValidationGroup.class})
+    @Size(
+            max = 20,
+            message = "Last name can have a maximum of 20 characters.",
+            groups = {RegistrationValidationGroup.class})
     private String lastName;
+    @NotNull
+    @NotEmpty(
+            message = "Please enter a password.",
+            groups = {RegistrationValidationGroup.class})
+    @Size(
+            min = 8,
+            message = "Password must be at least 8 characters long.",
+            groups = {RegistrationValidationGroup.class})
     private String password;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(

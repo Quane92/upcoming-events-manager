@@ -33,7 +33,7 @@ public class AccountService implements UserDetailsService {
     public void addAccountThroughRegistration(AccountDto accountDto) throws EmailAlreadyExistsException {
         boolean emailExists = accountRepository.findByEmail(accountDto.getEmail()).isPresent();
         if (emailExists) {
-            throw new EmailAlreadyExistsException("Email already exists in database");
+            throw new EmailAlreadyExistsException("Email already exists in database.");
         } else {
             Role userRole = roleRepository.findRoleByName("USER");
             Account accountToSave = new Account(
