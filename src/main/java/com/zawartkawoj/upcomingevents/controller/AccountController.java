@@ -4,6 +4,7 @@ import com.zawartkawoj.upcomingevents.entity.Account;
 import com.zawartkawoj.upcomingevents.dto.AccountDto;
 import com.zawartkawoj.upcomingevents.service.AccountService;
 import com.zawartkawoj.upcomingevents.validation.RegistrationValidationGroup;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -20,9 +21,14 @@ public class AccountController {
     }
 
     @GetMapping("/register")
-    public ModelAndView showRegisterPage() {
-        ModelAndView modelAndView = new ModelAndView("register.html");
-        modelAndView.addObject("account", new Account());
+    public ModelAndView showRegisterPage(Authentication authentication) {
+        ModelAndView modelAndView = new ModelAndView();
+        if(authentication != null && authentication.isAuthenticated()) {
+            modelAndView.setViewName("homeSignedIn.html");
+        } else {
+            modelAndView.addObject("account", new Account());
+            modelAndView.setViewName("register.html");
+        }
         return modelAndView;
     }
 
@@ -33,7 +39,7 @@ public class AccountController {
             BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
         if (bindingResult.hasErrors()) {
-            modelAndView.setViewName("/register");
+            modelAndView.setViewName("register.html");
         } else {
             modelAndView.setViewName("redirect:/home");
             accountService.addAccountThroughRegistration(accountDto);

@@ -5,8 +5,10 @@ import com.zawartkawoj.upcomingevents.entity.Account;
 import com.zawartkawoj.upcomingevents.entity.Event;
 import com.zawartkawoj.upcomingevents.service.AccountService;
 import com.zawartkawoj.upcomingevents.service.EventService;
+import jakarta.validation.Valid;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -34,18 +36,25 @@ public class UserPageController {
 
     @GetMapping("/event-form")
     public ModelAndView showEventsForm(@RequestParam(required = false) Integer id) {
-        ModelAndView modelAndView = new ModelAndView("/updateEvents.html");
+        ModelAndView modelAndView = new ModelAndView("updateEvents.html");
         modelAndView.addObject("event", id != null ? eventService.findById(id) : new Event());
         return modelAndView;
     }
 
     @PostMapping("/event-form")
-    public ModelAndView postEvent(@ModelAttribute EventDto eventDto, Authentication authentication) {
-        ModelAndView modelAndView = new ModelAndView("redirect:/user");
+    public ModelAndView postEvent(@ModelAttribute EventDto eventDto,
+                                  Authentication authentication,
+                                  @Valid Event event,
+                                  BindingResult bindingResult) {
+        ModelAndView modelAndView = new ModelAndView();
+        if (bindingResult.hasErrors()) {
+            modelAndView.setViewName("updateEvents.html");
+        } else {
+            Account eventAccount = accountService.findByEmail(authentication.getName());
+            eventService.addOrUpdateEvent(eventDto, eventAccount);
+            modelAndView.setViewName("redirect:/user");
 
-        Account account = accountService.findByEmail(authentication.getName());
-        eventService.addOrUpdateEvent(eventDto, account);
-
+        }
         return modelAndView;
     }
 

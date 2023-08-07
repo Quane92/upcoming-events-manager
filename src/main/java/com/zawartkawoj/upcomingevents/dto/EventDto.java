@@ -1,5 +1,7 @@
 package com.zawartkawoj.upcomingevents.dto;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDate;
 
 public class EventDto {
@@ -7,6 +9,7 @@ public class EventDto {
     private Integer id;
     private String name;
     private String note;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
 
     public EventDto() {

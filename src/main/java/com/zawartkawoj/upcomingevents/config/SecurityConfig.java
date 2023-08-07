@@ -18,7 +18,7 @@ public class SecurityConfig {
                         .requestMatchers("/home", "/").permitAll()
                         .requestMatchers("/register").permitAll()
                         .requestMatchers("/user").hasAnyAuthority("USER", "ADMIN")
-                        .anyRequest().permitAll()) // used only to access H2 database, configure later
+                        .anyRequest().hasAnyAuthority("USER", "ADMIN"))
                 .formLogin(login -> login
                         .loginPage("/home")
                         .loginProcessingUrl("/home")
@@ -26,7 +26,6 @@ public class SecurityConfig {
                         .failureUrl("/home?error=true")
                         .permitAll())
                 .logout(logout -> logout.logoutSuccessUrl("/home"))
-                .httpBasic(Customizer.withDefaults())
                 .build();
     }
 

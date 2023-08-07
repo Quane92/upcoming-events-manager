@@ -17,6 +17,7 @@
           integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 
     <link href="sign-in.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
 
 </head>
 <body class="d-flex align-items-center py-4 bg-body-tertiary ">
@@ -29,18 +30,21 @@
         </h1>
         <h1 class="h3 mb-3 fw-normal">Add event details.</h1>
         <div>
-        <input type="hidden" class="form-control" id="id" th:field="*{id}">
+        <input type="hidden" class="form-control" id="id" th:field="*{id}" th:object="${event}">
         </div>
-        <div class="form-floating ">
+        <div class="form-floating">
             <input type="text" class="form-control" id="name" th:field="*{name}">
+            <p class="validation-error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
             <label for="name">Event</label>
         </div>
         <div class="form-floating" >
             <input type="text" class="form-control" id="note" th:field="*{note}">
+            <p class="validation-error" th:if="${#fields.hasErrors('note')}" th:errors="*{note}"></p>
             <label for="note">Note</label>
         </div>
         <div class="form-floating mb-5">
-            <input type="date" class="form-control" id="date" th:field="*{date}">
+            <input type="date" max="9999-12-31" class="form-control" id="date" th:field="*{date}">
+            <p class="validation-error" th:if="${#fields.hasErrors('date')}" th:errors="*{date}"></p>
             <label for="date">Date</label>
         </div>
 
